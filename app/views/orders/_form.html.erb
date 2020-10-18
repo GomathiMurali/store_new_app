@@ -1,0 +1,246 @@
+<style>
+	hr {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		border: 0;
+
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+	} 
+	body {
+		background-color: #f2f2f2;
+	}
+	.bootstrap-select .dropdown-toggle {
+		overflow: hidden;
+		height: 35;
+	}
+</style>
+<br>
+<% if @order.persisted?
+	order = true 
+	product_detail = @order.line_item
+else
+	order = false
+	product_detail =  (0..0)
+	end %>
+	<%= form_with(model: @order, local: true) do |form| %>
+	<div class = "w-75 p-3">
+		<div class="container" >
+			<div class="container-fluid", style= "margin-left:4px">
+
+				<div class="card border-muted mb-3" style="max-width: 45rem;">
+					<div class="card-body text-secondary">
+						<div class="form-group">
+						
+							<label><%= t('.product_detail') %></label>
+							<button type="button" class="btn btn-primary btn-sm  float-right" id = "add_product_detail"><%= t('.add_more') %></button>   
+							<table>                             
+								<div class="order_product_detail col-md-12">        
+									<% product_detail.each_with_index do |l, index| %>  
+									<tbody> 
+										<tr>
+											<div class = "row">        
+												<div class="form-group product_detail product_detail_1">
+													<td>
+														<div class="col-md-12 mb-3">											
+															<%= select_tag "order[product_attributes][#{index}12345][title]", options_for_select(@products.collect{|e|["#{e.title}", e.variants.first.id]} , selected: order ? @order.product_id : (@products.count == 1 ? 1 : '') ), prompt:"Select a product",  id: 'product_title',class: 'form-control product_title' %>
+														</div>
+													</td>
+													<td>
+														<div class="col-md-12 mb-3">									
+															<%= number_field_tag "order[product_attributes][#{index}12345][price]", order ? l.price : '' , class: 'form-control product_price', placeholder: "0.00", required: true, id: 'product_price' %>						
+														</div>
+													</td>
+													<td>
+														<div class="col-md-12 mb-3">
+															<%= number_field_tag "order[product_attributes][#{index}12345][grams]", order ? (l.grams != 0.0 ? l.grams : '') : '' , class: 'form-control product_weight', placeholder: "Weight", required: true, id: 'product_grams' %>								
+														</div>
+													</td>
+													<td>
+														<div class="col-md-12 mb-3">
+															<%= number_field_tag "order[product_attributes][#{index}12345][quantity]", order ? l.quantity : '' , class: 'form-control product_quantity', placeholder: "Quantity", required: true, id: 'quantity' %>					    	
+														</div>
+													</div>
+												</div>
+											</tr>
+										</tbody>
+										<% end %>
+									</div>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="card border-muted mb-3" style="max-width: 45rem;">
+						<div class="card-body text-secondary">
+							<div class="form-group">
+								<label><%= t('.shipping_address') %></label>
+								<div class="row">
+									<div class="col-md-5 mb-3">
+										<%= t('.first_name') %>
+										<%= form.text_field :first_name, class: "form-control" %>
+										<%= t('.address') %>
+										<%= form.text_field :address1, class: "form-control" %>
+										
+											<%= t('.province') %>
+											<%= form.select :province, options_for_select(CS.states(:us).collect{ |k,v| [v, k] },:selected => form.object.id), {prompt: "Select", hide_label: true},{class: "form-control", id: 'cities-of-state'} %>
+
+											<%= t('.zip')%>
+											<%= form.text_field :zip, class: "form-control" %>
+										</div>
+										<div class="col-md-5 mb-3">
+											<%= t('.last_name') %>
+											<%= form.text_field :last_name, class: "form-control" %>				
+											<%= t('.apartment_suite') %>
+											<%= form.text_field :address2, class: "form-control" %>
+											<%= t('.phone_number') %>
+											<%= form.text_field :phone, class: "form-control" %>
+											<%= t('.city') %>
+											<%= form.text_field :city, class: "form-control" %>
+
+
+										</div>					
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card border-muted mb-3" style="max-width: 45rem;">
+							<div class="card-body text-secondary">
+								<div class="form-group">
+
+									<label><%= t('.contact_information') %></label>
+									<div class="row">
+										<div class="col-md-5 mb-3">
+											<%= t('.email')%>
+											<%= form.text_field :email, class: "form-control" %>
+											<%= t('.mobile_number')%>
+											<%= form.text_field :phone, class: "form-control" %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card border-muted mb-3" style="max-width: 45rem;">
+							<div class="card-body text-secondary">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-5 mb-3">
+											<%= t('.finanical_status') %>
+											<%= form.select :financial_status, options_for_select([ "pending", "authorized", "partially_paid", "paid", "partially_refunded","refunded", "voided"]),{prompt: "Select", hide_label: true},{class:  "form-control selectpicker"} %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="form-group">
+				<div class="actions">
+					<%= form.submit class: "btn btn-primary float-right",  style: "font-weight: bold; margin-bottom:10px"%>
+				</div>
+			</div>
+			<% end %>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script>
+
+				var variant_obj;		
+				$(document).on('change', "#product_title", function() {
+
+					var $this = $(this);
+					var ele = $this.closest('#order_table');
+					var title= $(this).closest("tr").find('select option:selected').val()
+		//alert(title);
+		var products = <%= @products.to_json.html_safe %>;
+		for(i in products){	
+			variant = products[i].variants[0];		
+			//console.log(variant.id,parseInt(title))	
+			if (variant.id == parseInt(title)) {
+				variant_obj = variant		
+				console.log(variant.id)					
+				$(this).closest("tr").find('#product_grams').val(variant.grams)
+				$(this).closest("tr").find('#product_price').val(variant.price)							
+			 }
+		}			
+	});
+
+				$(document).on('change', "#quantity", function() {
+					var $this = $(this);
+					var ele = $this.closest('#order_table');	
+					var qty= $(this).closest("tr").find('#quantity').val()
+					set_line_items(variant_obj.id, variant_obj.price, variant_obj.grams, qty)					
+				});
+
+
+				$('#add_product_detail').on('click', function () {	
+					var datetime = new Date();
+					var random_string = datetime.getTime();
+					var option_value = '';
+					var arr = <%= @products.to_json.html_safe %>;
+					for (i = 0; i < arr.length; i++) {
+						option_value += "<option value='" + arr[i].variants[0].id + "'>" + arr[i].title + "</option>";
+					}
+
+					var html_code = $( '<tr>'+ '<div class="form-group product_detail product_detail_1'+random_string+'">'+
+						'<td>'+ '<div class="col-sm">'+
+						'<select name="order[product_attributes]['+random_string+'][title]" id="product_title" class="form-control product_title"><option value= "">Select a product</option>' + option_value + '</select></div>'+
+						'</div>'+'</td>'+
+						'<td>'+'<div class="col-sm">'+
+						'<input id="product_price" name="order[product_attributes]['+random_string+'][price]" placeholder="Price" class="form-control product_price" required="true" value="" type="number"></div>'+
+						'</div>'+'</td>'+
+						'<td>'+'<div class="col-sm">'+
+						'<input id="product_grams" name="order[product_attributes]['+random_string+'][grams]" placeholder="Weight" class="form-control product_weight" required="true" value="" type="number"></div>'+
+						'</div>'+'</td>'+
+						'<td>'+'<div class="col-sm">'+
+						'<input id="product_quantity" name="order[product_attributes]['+random_string+'][quantity]" placeholder="Quantity" class="form-control product_quantity" required="true" value="" type="number"></div>'+
+						'</div>'+'</td>'+
+						'<td>'+'<div class="col-sm">'+
+						'<div class="col-md-12">'+
+						'<a class="remove_product_detail" onclick="remove_product_detail('+random_string+');"><i class="glyphicon glyphicon-trash"></i></a>'+
+						'</div>'+
+						'</div>'+
+						'</div>'+'</tr>');
+
+					var appended_values = $('.order_product_detail').append(html_code);
+
+				});  
+
+
+
+
+			</script>
+
+
+			<script type="text/javascript">
+				$('#states-of-country').change(function () {
+
+					var input_state = $(this);
+					var cities_of_state = $("#cities-of-state");
+
+					if($(this).val() == "") {
+						cities_of_state.html("");
+
+					} else {
+						$.ajax({
+							type: "GET",
+							url: "states",
+							data: {country: $(this).val()},
+							success: function(data) {        
+								var option = '<option value="" selected="">Select Your City</option>';
+					//console.log(data);
+					option += '<option>' + "data" + '</option>';
+					cities_of_state.html("data");
+					$.each(data, function (key, value) {
+						var option = '<option value='+ key +'>' + value + '</option>';
+						cities_of_state.append(option);
+					});
+
+
+				}
+			});
+
+					}
+				});
+
+
+			</script>

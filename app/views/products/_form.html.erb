@@ -1,0 +1,239 @@
+<style>
+	hr {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		border: 0;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+	} 
+	body {
+		background-color: #f2f2f2;
+	}
+	
+</style>
+<br>
+ 
+<%= form_with(model: @product, local: true) do |form| %>
+
+<div class = "w-75 p-3">
+	<div class="container" >
+		<div class="container-fluid", style= "margin-left:4px">
+
+			<div class="card border-muted mb-3" style="max-width: 40rem;">
+				<div class="card-body text-secondary">
+					<div class="form-group">
+						
+						<%= t('.title') %>
+						<%= form.text_field :title, class: "form-control" %>
+					</div>
+					<div class="form-group">
+						<%= t('.description') %>
+						<%= form.text_area :body_html, class: "form-control" %>
+						
+
+					</div>
+				</div>
+			</div>
+			<div class="card border-muted mb-3" style="max-width: 40rem;">
+				<div class="card-body text-secondary">
+					<div class="form-group">
+						
+						<div class="card border-muted mb-3" style="max-width: 40rem;">
+							<div class="card-body text-secondary">
+								<div class="form-group">
+								<div class="col-md-5 mb-3" >	
+								<%= t('.media') %>
+						        <%= form.file_field :image %>
+						    </div>
+						</div>
+                    
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card border-muted mb-3" style="max-width: 40rem;">
+				<div class="card-body text-secondary">
+					<div class="form-group">
+						<label for="pricing"><%= t('.pricing') %></label>
+					</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm">
+							<%= t('.price') %>
+							<%= form.text_field :price, id: "price", class: "form-control" %>
+						</div>
+						<div class="col-sm">
+							<%= t('.compare_price') %>
+							<%= form.text_field :compare_at_price, class: "form-control"%>
+						</div>
+					</div>
+					<hr/>
+					<div class="row">
+						<div class="col-sm">
+							<%= t('.cost_item') %>
+						    <%= form.text_field :cost, class: "form-control", id: "cost_per_item", onchange: "myFunction()" %>
+						</div>
+						<div class="col-sm">
+							<label for="margin" ><%= t('.margin') %>:</label>  
+						    <label  id = "margin">-</label>%
+							<label for="profit" ><%= t('.profit') %>:</label>
+							<label  id = "profit">-</label>
+						</div>
+					</div>
+				</div>
+
+				</div>
+			</div>
+
+			<div class="card border-muted mb-3" style="max-width: 40rem;">
+				<div class="card-body text-secondary">
+
+					<div class="form-group">
+						<label for="inventory"><%= t('.inventory') %></label>
+					</div>
+					<div class="row">
+						<div class="col-sm">
+							<%= t('.sku') %>
+							<%= form.text_field :sku ,class: "form-control"  %>
+						</div>
+						<div class="col-sm">
+							<%= t('.barcode') %>
+							<%= form.text_field :barcode, class: "form-control" %>
+						</div>
+					</div>		
+					<br>
+					<div class="row">
+						<div class="col-sm" >
+						  
+                   <%= form.check_box :tracked, id: "track_qty" %><%= t('.track_quantity') %><br>
+				   <%= form.check_box :continue_selling %><%= t('.continue_selling') %>
+
+						</div>
+					</div>
+					<hr />
+					<div class="form-group">
+						<label for="Quantity" id ="Quantity"><%= t('.quantity') %></label><br>
+					</div>	
+					<div class="form-group">
+						<div class="row">
+					<div class="col-md-5 mb-3" >							
+                      <%= t('.available') %>
+					   <%= form.number_field :quantity, id: "available_text" , class: "form-control "%>
+						</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			
+			<div class="card border-muted mb-3" style="max-width: 40rem;">
+				<div class="card-body text-secondary">
+					<div class="form-group">
+						<label for="shipping"><%= t('.shipping') %></label>
+					</div>
+					
+                    <%= t('.physical_product') %>
+					<hr/>
+					<div class="form-group">
+						<label for="weight"><%= t('.weight') %></label>
+						<p><%= t('.paragraph') %></p>
+						<%= t('.weight') %>
+						<div class = "row">
+                        <div class ="col-md-5 mb-3">
+						
+						<%= form.number_field :weight, class: "form-control" %> 
+                       </div><div class="col-md-2 mb-2">
+						<%= form.select :weight_unit, options_for_select([ "kg", "lb", "oz", "g"] , :selected => form.object.id), 
+						{prompt: "Select", hide_label: true}, {class: "form-control"}  %>
+					  
+                        </div>
+                    </div>
+                    </div>
+					<hr />
+					<div class="form-group">
+						<label for="customs_inf"><%= t 'customs_information' %></label>
+						<p> <%= t('.paragraphs') %></p>
+						<%= t('.country_origin') %>
+						<div class="form-group">
+							<div class="row">
+							<div class="col-sm">
+                        
+                        </div>
+                        </div>
+		                 </div>
+			           </div>
+
+					<p><%= t('.message') %></p>
+						    
+			</div>
+          	
+		</div>
+
+	</div>
+</div>
+</div>
+
+<hr>
+<div class="form-group">
+
+				<div class="actions">
+					<%= form.submit class: "btn btn-primary float-right", style: "font-weight: bold; margin-bottom:10px"%>
+				</div>
+			</div>
+<% end %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+<script>
+function myFunction() {
+  var price = document.getElementById("price").value;
+  var cost_per_item = document.getElementById("cost_per_item").value;
+  //cost.value = cost.value.profit();
+  //alert(price);
+  var profit = price - cost_per_item;
+     $('#profit').html(profit)
+      var margin = profit / price * 100
+     $('#margin').html(margin)
+}
+</script>
+
+<script type="text/javascript">     
+   $('#track_qty').change(function() {
+  	//alert(this.checked)
+     if(this.checked == true) {     	
+       $('#Quantity').show()
+        $('#available').show()
+           $('#available_text').show()
+     } else {
+       $('#Quantity').hide()
+       $('#available').hide()
+        $('#available_text').hide()
+     }
+ }); 
+</script>
+<script type="text/javascript">
+  tinymce.init({selector: 'textarea', height: 150});
+</script>
+
+
+<!-- <script type="text/javascript">
+	$('#states-of-country').change(function () {
+
+		var input_state = $(this);
+		var cities_of_state = $("#cities-of-state");
+
+		if($(this).val() == "") {
+			cities_of_state.html("");
+
+		} else {
+			$.ajax({
+				type: "GET",
+				url: "states",
+				data: {country: $(this).val()},
+				success: data 
+			});
+
+		}
+	});
+
+
+</script> -->

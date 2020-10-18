@@ -1,0 +1,94 @@
+<style type="text/css">
+  body, html {
+    height: 100%;
+
+  }
+
+
+  @media (min-width: 768px) {
+    aside {
+      height: scroll;
+     background-color:  #e6e6e6;
+    }
+  }
+</style>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Shopping Application</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!-- text editor -->
+   <script src= "https:cdn.tinymce.com/4/tinymce.min.js"></script>
+   
+
+  <!-- Our Custom CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" >
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+  
+</head>
+
+<body>
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"    aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
+
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <h5 class="text-white">Material Shop</h5>
+  
+</div>
+    
+<form class="form-inline my-2 my-lg-0">
+ <!--  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button> -->
+  <h5 class="text-white">
+          Language:
+      <%= link_to_unless I18n.locale == :en, "English", locale: :en %>|
+      <%= link_to_unless I18n.locale == :de, "Deutsch", locale: :de %>
+             </h5>
+</form>
+ 
+</nav>
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <aside class="col-12 col-md-2 p-0 bg">
+            <nav class="navbar navbar-expand navbar- bg-flex-md-column flex-row align-items-start">
+                <div class="collapse navbar-collapse">
+                    <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                       <li> <%= link_to t('order')%> </li><br>
+                      <li> <%= link_to t('create_orders'), new_order_path %> </li><br>
+                      <li> <%= link_to t('product') %> </li><br>
+                      <li> <%= link_to t('all_products'), products_path%> </li><br>
+                     <li><%= link_to t('create_products'), new_product_path %></li>
+                     
+                    </ul> 
+                </div>
+            </nav>
+        </aside>
+<main class="col">
+ <%= yield %>
+</main>
+</div>
+</div>
+
+<!-- /.row -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+de:
+  products:
+    index:
+      heading: "Produkte"
+      modal_body: "Diese CSV-Datei kann alle Produktinformationen mit Ausnahme der Bestandsmengen aktualisieren. Verwenden Sie zum Aktualisieren der Inventarmengen an mehreren Standorten die CSV-Datei für das Inventar oder den Masseneditor."
+      modal_body_text: "Erfahren Sie mehr über den Export von Produkten."
+      export: "Export"
+      close: "Schließen"
+      export_product: "Produkt exportieren"

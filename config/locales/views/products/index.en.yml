@@ -1,0 +1,9 @@
+  en:
+    products:
+      index:
+        heading: "Products"  
+        modal_body: "This CSV file can update all product information except for inventory quantities. To update inventory quantities at multiple locations, use the CSV file for inventory or the bulk editor."
+        modal_body_text: "Learn more about exporting products."
+        export: "Export"
+        close: "Close"
+        export_product: "Export Product"

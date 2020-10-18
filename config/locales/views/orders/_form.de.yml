@@ -1,0 +1,19 @@
+de:
+  orders: 
+    form:
+      addorder: "Bestellung hinzufügen"
+      product_detail: "Produktdetail"
+      add_more: "Fügen Sie mehr hinzu"
+      shipping_address: "Lieferanschrift"
+      first_name: "Vorname"
+      address: "Adresse"
+      province: "Provinz"
+      zip: "Postleitzahl"
+      last_name: "Nachname"
+      apartment_suite: "Apartment Suite usw. optional"
+      phone_number: "Telefonnummer"
+      city: "Stadt"
+      contact_information: "Kontakt Informationen"
+      email: "Email"
+      mobile_number: "Handynummer"
+      finanical_status: "Finanzieller Status"

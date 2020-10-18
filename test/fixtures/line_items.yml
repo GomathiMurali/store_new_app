@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  variant_id: MyString
+  price: 9.99
+  grams: 1
+  quantity: 1
+  uid: MyString
+
+two:
+  variant_id: MyString
+  price: 9.99
+  grams: 1
+  quantity: 1
+  uid: MyString

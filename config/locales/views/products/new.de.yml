@@ -1,0 +1,5 @@
+ de:
+  products:
+    new:
+     create: "Produkt hinzufügen"
+     # heading: "Produkte"

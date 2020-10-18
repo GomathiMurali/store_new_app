@@ -1,0 +1,18 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+product_heading = style.add_style(b: true, sz: 12,:font  => 'Arial',)
+heading = style.add_style(b: true)
+wb.add_worksheet(name: "products") do |sheet|
+
+   sheet.add_row []
+   sheet.add_row ["Products List"], style: product_heading
+   sheet.add_row ["Title" , "Body(Html)", "Vendor", "Product_Type", "Variant SKU" , "Variant Grams" ,"Variant Barcode", "Variant Weight Unit ",  "Inventory Quantity", "Total Inventory Quantity", "Price"],style: heading
+   @products_list.each do |key, value|
+   puts "prod val : #{key[:title]}"
+    sheet.add_row [key[:title], key[:body_html], key[:vendor], key[:product_type],  key[:sku], key[:grams], key[:barcode], key[:weight_unit], key[:total_inventory_quantity], key[:inventory_quantity], key[:price]]
+   end
+  
+ 
+end
+end

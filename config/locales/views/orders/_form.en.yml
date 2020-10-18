@@ -1,0 +1,19 @@
+en:
+  orders: 
+    form:
+      addorder: "Add Order"
+      product_detail: "Product Detail"
+      add_more: "Add more"
+      shipping_address: "Shipping Address"
+      first_name: "First Name"
+      address: "Address"
+      province: "Province"
+      zip: "Zip"
+      last_name: "Last Name"
+      apartment_suite: "Apartment suite etc optional"
+      phone_number: "Phone Number"
+      city: "City"
+      contact_information: "Contact Information"
+      email: "Email"
+      mobile_number: "Mobile Number"
+      finanical_status: "Finanical Status"

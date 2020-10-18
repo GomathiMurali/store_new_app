@@ -1,0 +1,17 @@
+function add_product() {								
+					$("#line_item_id").each(function () {
+
+						var tds = '<tr>';
+						jQuery.each($('tr:last td', this), function () {
+							//console.log($(this).html());
+							tds += '<td>' + $(this).html() + '</td>';
+						});
+						tds += '</tr>';
+						if ($('tbody', this).length > 0) {
+							$('tbody', this).append(tds);
+
+
+						} 
+					});
+
+				}
